@@ -6,7 +6,7 @@ import (
 	"os"
 
 	"github.com/joho/godotenv"
-	//"github.com/slack-go/slack"
+	"github.com/slack-go/slack"
 )
 
 func getConnection() {
@@ -14,11 +14,16 @@ func getConnection() {
 	if err != nil {
 		log.Fatalf("Some error occured: %s", err)
 	}
-	fmt.Println(os.Getenv("OAUTH_TOKEN"))
-	//api := slack.New(os.Getenv("OAUTH_TOKEN"))
-	// channelID, timestamp, err := api.PostMessage(
+	api := slack.New(os.Getenv("OAUTH_TOKEN"))
+	channelID, timestamp, err := api.PostMessage(
+		os.Getenv("CHANNEL_ID"),
+		slack.MsgOptionText("Hello World", false),
+	)
 
-	//)
+	if err != nil {
+		log.Fatalf("Some error occured: %s", err)
+	}
+	fmt.Println("Message sent successfully at %s to channel ID %s", timestamp, channelID)
 }
 
 func main() {
