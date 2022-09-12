@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginxcontroller
+  labels:
+    name: nginxcontroller
+    app: demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: nginxcontroller
+      app: demo
+  template:
+    metadata:
+      labels:
+        name: nginxcontroller
+        app: demo
+    spec:
+      containers:
+        - name: nginxcontroller
+          image: nginx
+          imagePullPolicy: Always
+          ports:
+              - containerPort: 80
+
