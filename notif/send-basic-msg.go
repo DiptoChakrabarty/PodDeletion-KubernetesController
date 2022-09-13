@@ -5,6 +5,7 @@ import (
 	"log"
 	"os"
 
+	"github.com/DiptoChakrabarty/podDeletionController/logger"
 	"github.com/joho/godotenv"
 	"github.com/slack-go/slack"
 )
@@ -21,7 +22,7 @@ func getConnection() {
 	)
 
 	if err != nil {
-		log.Fatalf("Some error occured: %s", err)
+		logger.Error("Some error occured: %s", err)
 	}
 	fmt.Println("Message sent successfully at %s to channel ID %s", timestamp, channelID)
 }
