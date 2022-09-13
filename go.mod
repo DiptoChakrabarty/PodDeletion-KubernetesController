@@ -1,10 +1,11 @@
-module notif
+module github.com/DiptoChakrabarty/podDeletionController
 
 go 1.18
 
 require (
 	github.com/joho/godotenv v1.4.0
 	github.com/slack-go/slack v0.11.3
+	go.uber.org/zap v1.23.0
 	k8s.io/client-go v0.25.0
 )
 
@@ -31,6 +32,8 @@ require (
 	github.com/modern-go/reflect2 v1.0.2 // indirect
 	github.com/munnerz/goautoneg v0.0.0-20191010083416-a7dc8b61c822 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
+	go.uber.org/atomic v1.7.0 // indirect
+	go.uber.org/multierr v1.6.0 // indirect
 	golang.org/x/net v0.0.0-20220722155237-a158d28d115b // indirect
 	golang.org/x/oauth2 v0.0.0-20211104180415-d3ed0bb246c8 // indirect
 	golang.org/x/sys v0.0.0-20220722155257-8c9f86f7a55f // indirect
