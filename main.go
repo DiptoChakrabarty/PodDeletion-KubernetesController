@@ -1,11 +1,13 @@
 package main
 
 import (
+	"encoding/json"
 	"flag"
 	"fmt"
 	"path/filepath"
 	"time"
 
+	"github.com/DiptoChakrabarty/podDeletionController/logger"
 	"k8s.io/client-go/informers"
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/tools/cache"
@@ -25,7 +27,7 @@ func main() {
 
 	config, err := clientcmd.BuildConfigFromFlags("", *kubeconfig)
 	if err != nil {
-		panic(err)
+
 	}
 	//fmt.Println(config)
 
@@ -46,6 +48,12 @@ func main() {
 		},
 		DeleteFunc: func(obj interface{}) {
 			fmt.Println("Delete was called")
+			fmt.Println(obj)
+			data, err := json.Marshal(obj)
+			if err != nil {
+				logger.Error("Unable to generate data", err)
+			}
+			fmt.Println(data)
 		},
 	})
 
