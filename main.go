@@ -48,7 +48,7 @@ func main() {
 		},
 		DeleteFunc: func(obj interface{}) {
 			fmt.Println("Delete was called")
-			fmt.Println(obj)
+			//fmt.Println(obj)
 			data, err := json.Marshal(obj)
 			if err != nil {
 				logger.Error("Unable to generate data", err)
@@ -56,11 +56,6 @@ func main() {
 			fmt.Println(data)
 		},
 	})
-
-	/* 	informerfactory.Start(wait.NeverStop)
-	   	informerfactory.WaitForCacheSync(wait.NeverStop)
-	   	pod, _ := podinformer.Lister().Pods("default").Get("default")
-	   	fmt.Println(pod) */
 
 	go podinformer.Run(podDelete)
 	<-podDelete
