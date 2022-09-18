@@ -40,7 +40,15 @@ func NewSlackClient() *SlackModel {
 	}
 }
 
-func getConnection() {
+func (client *SlackModel) SendMessage(s string) (string, string, error) {
+	channelID, timestamp, err := client.Connection.PostMessage(
+		loadEnv("CHANNEL_ID"),
+		slack.MsgOptionText(s, false)
+	)
+	return channelID, timestamp, err
+}
+
+/* func getConnection() {
 	err := godotenv.Load(".env")
 	if err != nil {
 		log.Fatalf("Some error occured: %s", err)
@@ -59,4 +67,4 @@ func getConnection() {
 
 func main() {
 	getConnection()
-}
+} */
