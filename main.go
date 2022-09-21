@@ -8,6 +8,7 @@ import (
 	"time"
 
 	"github.com/DiptoChakrabarty/podDeletionController/logger"
+	"github.com/DiptoChakrabarty/podDeletionController/notif"
 	"k8s.io/client-go/informers"
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/tools/cache"
@@ -17,6 +18,8 @@ import (
 
 func main() {
 	var kubeconfig *string
+	s := "This is deletion operation"
+	ClientModel := notif.NewSlackClient()
 	podDelete := make(chan struct{})
 	defer close(podDelete)
 	if home := homedir.HomeDir(); home != "" {
@@ -24,7 +27,7 @@ func main() {
 	} else {
 		kubeconfig = flag.String("kubeconfig", "", "absolute path to kubeconfig file")
 	}
-
+	fmt.Println("KubeConfig Read")
 	config, err := clientcmd.BuildConfigFromFlags("", *kubeconfig)
 	if err != nil {
 
@@ -47,13 +50,18 @@ func main() {
 			fmt.Println("Update was called")
 		},
 		DeleteFunc: func(obj interface{}) {
-			fmt.Println("Delete was called")
+			fmt.Println(s)
 			//fmt.Println(obj)
 			data, err := json.Marshal(obj)
 			if err != nil {
 				logger.Error("Unable to generate data", err)
 			}
-			fmt.Println(data)
+			//fmt.Println(data)
+			channelID, timestamp, err := ClientModel.SendMessage(string(data))
+			if err != nil {
+				logger.Error(fmt.Sprintf("Unable to send message to channel ID %s", channelID), err)
+			}
+			logger.Info(fmt.Sprintf("Message sent successfully at %s to channel ID %s", timestamp, channelID))
 		},
 	})
 
