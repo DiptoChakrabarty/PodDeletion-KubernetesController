@@ -25,3 +25,6 @@ This is a very basic simple controller to send slack messages to a designated  w
 
 - Slack notification in channel
 ![Slack Notification](https://github.com/DiptoChakrabarty/Pod-Delete-Notify-Controller/blob/main/images/poddeleteslack.png)
+
+
+Some aspects are being worked on check issues to stay updated
