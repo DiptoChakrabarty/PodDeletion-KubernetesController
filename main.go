@@ -32,7 +32,6 @@ func main() {
 	if err != nil {
 
 	}
-	//fmt.Println(config)
 
 	clientset, err := kubernetes.NewForConfig(config)
 	if err != nil {
@@ -51,12 +50,10 @@ func main() {
 		},
 		DeleteFunc: func(obj interface{}) {
 			fmt.Println(s)
-			//fmt.Println(obj)
 			data, err := json.Marshal(obj)
 			if err != nil {
 				logger.Error("Unable to generate data", err)
 			}
-			//fmt.Println(data)
 			channelID, timestamp, err := ClientModel.SendMessage(string(data))
 			if err != nil {
 				logger.Error(fmt.Sprintf("Unable to send message to channel ID %s", channelID), err)
